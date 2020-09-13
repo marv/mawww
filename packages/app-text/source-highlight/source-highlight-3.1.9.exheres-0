@@ -17,6 +17,13 @@ DEPENDENCIES="
         dev-libs/boost
 "
 
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --with-boost-regex="boost_regex"
+
+    # We handle it ourself
+    --without-bash-completion
+)
+
 src_test() {
     emake -j1 check
 }
@@ -24,8 +31,6 @@ src_test() {
 src_install() {
      default
 
-     dobashcompletion "${IMAGE}"/etc/bash_completion.d/source-highlight
-     edo rm "${IMAGE}"/etc/bash_completion.d/source-highlight
-     edo rmdir "${IMAGE}"/etc/bash_completion.d/ "${IMAGE}"/etc/
+     dobashcompletion completion/source-highlight
 }
 
